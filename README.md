@@ -3,13 +3,13 @@ Welcome to our GitHub project focused on mastering fundamental data structures i
 
 # What to Expect:
 
-### Stacks and Queues Mastery: 
+### Stacks and Queues Mastery:
 Here we delve deep into the world of stacks (Last In, First Out) and queues (First In, First Out). Learnt and understood implementation using *doubly linked lists*, advantages, and use cases in various scenarios.
 
-### Monty Interpreter: Witness the magic of interpreting code! 
+### Monty Interpreter: Witness the magic of interpreting code!
 We are crafting a custom Monty interpreter, a tool that reads and executes Monty bytecode files. With stacks and queues at its core, this interpreter promises to be a powerful tool for understanding and executing Monty code effortlessly.
 
-### Collaborative Excellence: 
+### Collaborative Excellence:
 This project represents the synergy between two passionate developers. Despite the challenges, our dedication to mastering C, data structures, and interpreters drives us forward. **Through collaboration and shared knowledge, we are building something exceptional.**
 
 ### Why This Project Matters:
@@ -18,7 +18,7 @@ Understanding data structures and interpreters is pivotal in computer science. W
 
 # AUTHORS
 - [Ipadeola Michael Bamidele](https://github.com/ObamtechNetworks)
-- [Josephine Wahu Wamiti](https://github.com/josphinewamiti)
+- [Josephine Wahu Wamiti](https://github.com/wahujos)
 
 # DATA STRUCTURES
 ```
