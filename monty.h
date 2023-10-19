@@ -53,7 +53,7 @@ typedef struct glob_opcode_s
 	unsigned int line_no;
 } glob_opcode_t;
 /*to be declared as an external variable*/
-extern glob_opcode_t g_opcode;
+glob_opcode_t g_opcode;
 
 /** opcode functions */
 void push(stack_t **stack, unsigned int line_number);
