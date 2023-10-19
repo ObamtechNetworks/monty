@@ -39,21 +39,25 @@ typedef struct instruction_s
 } instruction_t;
 
 /**
- * struct glob_opcode_s - global variable for opcode, value and line number
+ * struct glob_vars - global variable for opcode, value and line number
  * @arg: the second argument after opcode in the bytecode i.e:push 1
+ * @file: file stream
+ * @rd_line: to store lines read from geline()
  * @opcode: the actual opcode e.g: pop, push
  * @line_no: line number for each opcode
  *
  * Description: to be declared as a global variable for opcode, value & line no
  */
-typedef struct glob_opcode_s
+typedef struct glob_vars
 {
 	char *opcode;
 	char *arg;
+	char *rd_line;
+	FILE *file;
 	unsigned int line_no;
-} glob_opcode_t;
+} glob_t;
 /*to be declared as an external variable*/
-glob_opcode_t g_opcode;
+extern glob_t glob_var;
 
 /** opcode functions */
 void push(stack_t **stack, unsigned int line_number);
@@ -75,7 +79,11 @@ void trim_whitespace(char *str);
 /** function pointer*/
 void get_opfunc(char *opcode, stack_t **stack, unsigned int line_number);
 
-
 /*helper functions*/
 char *_strdup(char *str);
+
+/** FREE RESOURCES */
+void free_globals(void);
+void free_ln_cls_fd(void);
+void free_stack(stack_t *stack);
 #endif /*_MONTY_H*/

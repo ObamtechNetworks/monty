@@ -1,6 +1,6 @@
 #define _GNU_SOURCE
 #include "monty.h"
-glob_opcode_t g_opcode = {NULL, NULL, 1};
+glob_t glob_var = {NULL, NULL, NULL, NULL, 1};
 /**
  * read_byte_code - reads bytecodes line by line
  * @line: the line to read into
@@ -23,39 +23,6 @@ ssize_t read_byte_code(char **line, size_t *length, FILE *stream)
 	return (0);
 }
 /**
- * free_g_opcode - frees the global opcode and its args for every iteration
- * Return: nothing
- */
-void free_g_opcode(void)
-{
-	free(g_opcode.opcode);
-	free(g_opcode.arg);
-	g_opcode.opcode = NULL;
-	g_opcode.arg = NULL;
-}
-/**
- * free_stack - frees the stack before exiting the program
- * @stack: the pointer to the head of the stack
- * Return: nothing
- */
-void free_stack(stack_t *stack)
-{
-	stack_t *temp = NULL;
-	stack_t *next = NULL;
-
-	if (stack)
-	{
-		temp = stack;
-		while (temp->next != NULL)
-		{
-			next = temp->next;
-			free(temp);
-			temp = next;
-		}
-		free(temp);
-	}
-}
-/**
  * main - Entry point
  * @argc: number of commandline arguments
  * @argv: each command line arguments (each token)
@@ -63,10 +30,9 @@ void free_stack(stack_t *stack)
  */
 int main(int argc, char **argv)
 {
-	char *line = NULL, *bytecode = NULL;
+	char *bytecode = NULL;
 	size_t len = 0;
 	ssize_t bytes_read = 0;
-	FILE *file = NULL; /*file poitner to open file*/
 	stack_t *stack = NULL; /*the head of the stack variable*/
 	/** handle input from user */
 	if (argc != 2)
@@ -75,32 +41,33 @@ int main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	} /*set file stream to be second CLI argument*/
 	bytecode = argv[1];
-	file = fopen(bytecode, "r");/** open the file for reading*/
-	if (file == NULL)
+	glob_var.file = fopen(bytecode, "r");/** open the file for reading*/
+	if (glob_var.file == NULL)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", bytecode);
 		exit(EXIT_FAILURE);
 	} /*call read_byte_code function in an infinite loop*/
 	while (1)
 	{
-		bytes_read = read_byte_code(&line, &len, file);
+		bytes_read = read_byte_code(&glob_var.rd_line,
+				&len, glob_var.file);
 		if (bytes_read == -1)
 			break; /* break out of loop*/
-		tokenize_line(line, &g_opcode.opcode, &g_opcode.arg);
+		tokenize_line(glob_var.rd_line,
+				&glob_var.opcode, &glob_var.arg);
 		/*check if parsing was successful*/
-		if (g_opcode.opcode != NULL && g_opcode.arg != NULL)
-		{ /*call the get_opfunc on the g_opcode and arg*/
-			get_opfunc(g_opcode.opcode, &stack, g_opcode.line_no);
-			g_opcode.line_no++;/*increments line number to read next line*/
+		if (glob_var.opcode != NULL && glob_var.arg != NULL)
+		{ /*call the get_opfunc on the glob_opcode and arg*/
+			get_opfunc(glob_var.opcode, &stack, glob_var.line_no);
+			glob_var.line_no++;/*incr. line_no to read next line*/
 		}
 		else
-			g_opcode.line_no++;/*ignore empty lines*/
+			glob_var.line_no++;/*ignore empty lines*/
 		/*free before moving to next line*/
-		free_g_opcode();
+		free_globals();
 	}
-	free(line);/*free line read from getline*/
-	fclose(file);
-	free_g_opcode();
+	free_globals();
+	free_ln_cls_fd();
 	free_stack(stack); /*free the stack*/
 	return (EXIT_SUCCESS);
 }

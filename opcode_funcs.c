@@ -10,18 +10,20 @@ void push(stack_t **stack, unsigned int line_number)
 	int value = 0;
 	stack_t *new_node = NULL;
 	char *arg_cpy = NULL; /*for a copy of the arg from strtok*/
-	/*check if arg from byte code is valid*/
 	/*if arg is not digit and not neg or positive*/
-	if (g_opcode.arg == NULL || (!isdigit(g_opcode.arg[0])
-				&& g_opcode.arg[0] != '-'
-				&& g_opcode.arg[0] != '+'))
+	if (glob_var.arg == NULL || (!isdigit(glob_var.arg[0])
+				&& glob_var.arg[0] != '-'
+				&& glob_var.arg[0] != '+'))
 	{
 		if (arg_cpy != NULL)
 			free(arg_cpy);
+		free_globals();
+		free_stack(*stack);
+		free_ln_cls_fd();
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	arg_cpy = _strdup(g_opcode.arg);/*makes cpy of the arg saved frm strtok*/
+	arg_cpy = _strdup(glob_var.arg);/*makes cpy of the arg saved frm strtok*/
 	if (arg_cpy == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
