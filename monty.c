@@ -35,6 +35,23 @@ void check_argc(int argc)
 	}
 }
 /**
+ * open_file - opens a file stream
+ * @argv: bytecode to open
+ * Return: nothing
+ */
+void open_file(char **argv)
+{
+	char *bytecode = NULL;
+
+	bytecode = argv[1];
+	glob_var.file = fopen(bytecode, "r");/** open the file for reading*/
+	if (glob_var.file == NULL)
+	{
+		fprintf(stderr, "Error: Can't open file %s\n", bytecode);
+		exit(EXIT_FAILURE);
+	}
+}
+/**
  * main - Entry point
  * @argc: number of commandline arguments
  * @argv: each command line arguments (each token)
@@ -42,27 +59,26 @@ void check_argc(int argc)
  */
 int main(int argc, char **argv)
 {
-	char *bytecode = NULL;
 	size_t len = 0;
 	ssize_t bytes_read = 0;
 	stack_t *stack = NULL; /*the head of the stack variable*/
 
 	glob_var.line_no = 1;/*starts line number at 1*/
 	check_argc(argc);/** handle input from user */
-	/*set file stream to be second CLI argument*/
-	bytecode = argv[1];
-	glob_var.file = fopen(bytecode, "r");/** open the file for reading*/
-	if (glob_var.file == NULL)
-	{
-		fprintf(stderr, "Error: Can't open file %s\n", bytecode);
-		exit(EXIT_FAILURE);
-	} /*call read_byte_code function in an infinite loop*/
+	/*set file stream to be second CLI arg, logic in fxn*/
+	open_file(argv);
+	/*call read_byte_code function in an infinite loop*/
 	while (1)
 	{
 		bytes_read = read_byte_code(&glob_var.rd_line,
 				&len, glob_var.file);
 		if (bytes_read == -1)
 			break; /* break out of loop*/
+		if (glob_var.rd_line[0] == '#')
+		{
+			glob_var.line_no++;
+			continue; /*skip the line*/
+		}
 		tokenize_line(glob_var.rd_line,
 				&glob_var.opcode, &glob_var.arg);
 		/*check if parsing was successful*/
