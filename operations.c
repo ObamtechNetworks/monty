@@ -15,7 +15,7 @@ void pint(stack_t **stack, unsigned int line_number)
  * this should be followed by a new line
  */
 
-	if (stack == NULL)
+	if (*stack == NULL)
 	{
 		/* throw an error */
 		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);

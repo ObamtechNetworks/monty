@@ -27,7 +27,7 @@ void tokenize_line(char *line, char **opcode, char **arg)
 	*opcode = _strdup(token);/*else when token != NULL*/
 	if (*opcode == NULL)
 	{
-		fprintf(stderr, "Error: strdup failed\n");
+		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 	/*get other part ---> arg, thru arg token*/
@@ -40,7 +40,7 @@ void tokenize_line(char *line, char **opcode, char **arg)
 		if (*arg == NULL)
 		{
 			free(*opcode);
-			fprintf(stderr, "Error: strdup failed\n");
+			fprintf(stderr, "Error: malloc failed\n");
 			exit(EXIT_FAILURE);
 		}
 	}
