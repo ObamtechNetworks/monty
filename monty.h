@@ -40,7 +40,7 @@ typedef struct instruction_s
 
 /**
  * struct glob_opcode_s - global variable for opcode, value and line number
- * @args: the second argument after opcode in the bytecode i.e:push 1
+ * @arg: the second argument after opcode in the bytecode i.e:push 1
  * @opcode: the actual opcode e.g: pop, push
  * @line_no: line number for each opcode
  *
@@ -59,6 +59,13 @@ extern glob_opcode_t g_opcode;
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 void trim_whitespace(char *str);
+
+/** more opcode functions */
+void pint(stack_t **stack, unsigned int line_number);
+void pop(stack_t **stack, unsigned int line_number);
+void swap(stack_t **stack, unsigned int line_number);
+void add(stack_t **stack, unsigned int line_number);
+void nop(stack_t **stack, unsigned int line_number);
 
 /*TOKENIZER FAMILY*/
 char *parse_arg(char *arg_token);
