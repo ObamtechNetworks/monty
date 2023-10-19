@@ -1,8 +1,4 @@
-#include <stdlib.h>
-#include "main.h"
-#include <string.h>
-#include <stdio.h>
-
+#include "monty.h"
 /**
  * *_strdup - function that returns a pointer to
  * a newly allocated space in memory

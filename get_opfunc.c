@@ -10,12 +10,15 @@ void get_opfunc(char *opcode, stack_t **stack, unsigned int line_number)
 {
 	instruction_t instructions[] = {
 		{"push", push},
-		{"pall", pall},
-		{NULL, NULL}
+		{"pall", pall}
 	};
 	int size = sizeof(instructions) / sizeof(instructions[0]);
 	int i = 0;
-
+	/*trim leading whitespace from opcode*/
+	trim_whitespace(opcode);
+	/*handle empty opcode*/
+	if (strlen(opcode) == 0)
+		return;/*skip and continue*/
 	for (i = 0; i < size; i++)
 	{
 		if (strcmp(opcode, instructions[i].opcode) == 0)
@@ -24,7 +27,6 @@ void get_opfunc(char *opcode, stack_t **stack, unsigned int line_number)
 			return;
 		}
 	}
-	/* else error is handled*/
 	fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
 	exit(EXIT_FAILURE);
 }

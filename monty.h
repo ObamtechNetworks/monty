@@ -58,7 +58,16 @@ extern glob_opcode_t g_opcode;
 /** opcode functions */
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
+void trim_whitespace(char *str);
+
+/*TOKENIZER FAMILY*/
+char *parse_arg(char *arg_token);
+void tokenize_line(char *line, char **opcode, char **arg);
+
 /** function pointer*/
 void get_opfunc(char *opcode, stack_t **stack, unsigned int line_number);
 
+
+/*helper functions*/
+char *_strdup(char *str);
 #endif /*_MONTY_H*/
