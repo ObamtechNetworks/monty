@@ -16,6 +16,8 @@ void push(stack_t **stack, unsigned int line_number)
 				&& g_opcode.arg[0] != '-'
 				&& g_opcode.arg[0] != '+'))
 	{
+		if (arg_cpy != NULL)
+			free(arg_cpy);
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
