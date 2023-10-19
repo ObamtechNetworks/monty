@@ -15,7 +15,11 @@ void get_opfunc(char *opcode, stack_t **stack, unsigned int line_number)
 		{"pop", pop},
 		{"swap", swap},
 		{"add", add},
-		{"nop", nop}
+		{"nop", nop},
+		{"sub", sub},
+		{"div", div_op},
+		{"mul", mul},
+		{"mod", mod}
 	};
 	int size = sizeof(instructions) / sizeof(instructions[0]);
 	int i = 0;
