@@ -22,7 +22,7 @@ void push(stack_t **stack, unsigned int line_number)
 	arg_cpy = _strdup(g_opcode.arg);/*makes cpy of the arg saved frm strtok*/
 	if (arg_cpy == NULL)
 	{
-		fprintf(stderr, "Error: strdup failed\n");
+		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 	value = atoi(arg_cpy);

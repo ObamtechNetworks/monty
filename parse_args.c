@@ -17,7 +17,7 @@ char *parse_arg(char *arg_token)
 		argument = _strdup(""); /*retn an empty string for opt arg*/
 		if (argument == NULL)
 		{
-			fprintf(stderr, "Error: strdup failed\n");
+			fprintf(stderr, "Error: malloc failed\n");
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -26,7 +26,7 @@ char *parse_arg(char *arg_token)
 		argument = _strdup(arg_token);
 		if (argument == NULL)
 		{
-			fprintf(stderr, "Error: strdup failed\n");
+			fprintf(stderr, "Error: malloc failed\n");
 			exit(EXIT_FAILURE);
 		}
 	}
