@@ -57,7 +57,7 @@ typedef struct glob_vars
 	unsigned int line_no;
 } glob_t;
 /*to be declared as an external variable*/
-extern glob_t glob_var;
+glob_t glob_var;
 
 /** opcode functions */
 void push(stack_t **stack, unsigned int line_number);

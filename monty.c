@@ -1,6 +1,5 @@
 #define _GNU_SOURCE
 #include "monty.h"
-glob_t glob_var = {NULL, NULL, NULL, NULL, 1};
 /**
  * read_byte_code - reads bytecodes line by line
  * @line: the line to read into
@@ -23,6 +22,19 @@ ssize_t read_byte_code(char **line, size_t *length, FILE *stream)
 	return (0);
 }
 /**
+ * check_argc - check if CLI argument is valid
+ * @argc: number of CLI args
+ * Return: nothing
+ */
+void check_argc(int argc)
+{
+	if (argc != 2)
+	{
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
+	}
+}
+/**
  * main - Entry point
  * @argc: number of commandline arguments
  * @argv: each command line arguments (each token)
@@ -34,12 +46,10 @@ int main(int argc, char **argv)
 	size_t len = 0;
 	ssize_t bytes_read = 0;
 	stack_t *stack = NULL; /*the head of the stack variable*/
-	/** handle input from user */
-	if (argc != 2)
-	{
-		fprintf(stderr, "USAGE: monty file\n");
-		exit(EXIT_FAILURE);
-	} /*set file stream to be second CLI argument*/
+
+	glob_var.line_no = 1;/*starts line number at 1*/
+	check_argc(argc);/** handle input from user */
+	/*set file stream to be second CLI argument*/
 	bytecode = argv[1];
 	glob_var.file = fopen(bytecode, "r");/** open the file for reading*/
 	if (glob_var.file == NULL)
