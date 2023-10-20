@@ -71,6 +71,7 @@ int main(int argc, char **argv)
 	stack_t *stack = NULL; /*the head of the stack variable*/
 
 	glob_var.line_no = 1;/*starts line number at 1*/
+	glob_var.LIFO_FIFO = 1; /*sets structure to stack*/
 	check_argc(argc);/** handle input from user */
 	/*set file stream to be second CLI arg, logic in fxn*/
 	open_file(argv);
