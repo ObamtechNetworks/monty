@@ -2,6 +2,7 @@
 /**
  * pint - pint opcode prints the value of
  *  the top of the stack followed by a new line
+ *  has no return type
  * @stack:  a double pointer to the stack
  * @line_number: used to keep track of the line number
  */
