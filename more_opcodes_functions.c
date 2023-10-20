@@ -57,7 +57,7 @@ void div_op(stack_t **stack, unsigned int line_number)
 /**
  * mul - function multiplies the second top element
  *  of the stack with the top element of the stack
- *  second_top * top
+ *  result = second_top * top
  * @stack: a pointer to a pointer pointing to the stack
  * @line_number: keeps track of the line number in the stack
  */
