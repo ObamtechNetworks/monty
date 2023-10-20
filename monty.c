@@ -9,17 +9,24 @@
  */
 ssize_t read_byte_code(char **line, size_t *length, FILE *stream)
 {
+	char *ptr;
 	/*variables to hold tokens */
 	ssize_t lines_read = 0;
 
-	/*read lines from getline*/
-	lines_read = getline(line, length, stream);
-	/*check return value from getine, -1 for error*/
-	if (lines_read == -1)
-		return (-1);
-	/* 0 for success*/
-	/*the returns values is for error handling*/
-	return (0);
+	do {
+		/*read lines from getline*/
+		lines_read = getline(line, length, stream);
+		/*check return value from getine, -1 for error*/
+		if (lines_read == -1)
+			return (-1);
+		ptr = *line;
+		/*check if the first non-space character is a '#' */
+		while (*ptr && isspace(*ptr))
+			ptr++;
+	/*if the first non-space char is a '#', skip the line*/
+	} while (*ptr == '\0' || *ptr == '#');
+
+	return (lines_read);
 }
 /**
  * check_argc - check if CLI argument is valid
@@ -74,18 +81,16 @@ int main(int argc, char **argv)
 				&len, glob_var.file);
 		if (bytes_read == -1)
 			break; /* break out of loop*/
-		if (glob_var.rd_line[0] == '#')
+		if (bytes_read > 1)
 		{
-			glob_var.line_no++;
-			continue; /*skip the line*/
-		}
-		tokenize_line(glob_var.rd_line,
+			tokenize_line(glob_var.rd_line,
 				&glob_var.opcode, &glob_var.arg);
-		/*check if parsing was successful*/
-		if (glob_var.opcode != NULL && glob_var.arg != NULL)
-		{ /*call the get_opfunc on the glob_opcode and arg*/
-			get_opfunc(glob_var.opcode, &stack, glob_var.line_no);
-			glob_var.line_no++;/*incr. line_no to read next line*/
+			/*check if parsing was successful*/
+			if (glob_var.opcode != NULL && glob_var.arg != NULL)
+			{ /*call the get_opfunc on the glob_opcode and arg*/
+				get_opfunc(glob_var.opcode, &stack, glob_var.line_no);
+				glob_var.line_no++;/*incr. line_no to read next line*/
+			}
 		}
 		else
 			glob_var.line_no++;/*ignore empty lines*/
