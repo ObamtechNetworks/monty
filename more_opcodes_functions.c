@@ -25,7 +25,7 @@ void sub(stack_t **stack, unsigned int line_number)
 	}
 }
 /**
- * div - function divides the second top element
+ * div_op - function divides the second top element
  *  of the stack by the top element of the stack.
  *  second_top / top
  *  @stack: double pointer pointing to the stack
@@ -67,7 +67,7 @@ void mul(stack_t **stack, unsigned int line_number)
 
 	if (*stack == NULL || (*stack)->next == NULL)
 	{
-		fprintf(stderr, "L%d: can't mul, stack too short\n", line_number);
+		fprintf(stderr, "L%d: can't mul, stack too short", line_number);
 		exit(EXIT_FAILURE);
 	}
 	else
@@ -91,22 +91,19 @@ void mod(stack_t **stack, unsigned int line_number)
 {
 	int top, second_top, result;
 
-	if (*stack == NULL || (*stack)->next == NULL)
+	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
 	{
 		fprintf(stderr, "L%d: can't mod, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	else if ((*stack)->n == 0)
+	top = (*stack)->n;
+	if (top == 0)
 	{
 		fprintf(stderr, "L%d: division by zero", line_number);
 		exit(EXIT_FAILURE);
 	}
-	else
-	{
-		top = (*stack)->n;
 		second_top = (*stack)->next->n;
 		result = second_top % top;
 		(*stack)->next->n = result;
 		pop(stack, line_number);
-	}
 }
