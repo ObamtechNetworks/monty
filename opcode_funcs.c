@@ -45,7 +45,7 @@ int check_arg(char *arg)
 void push(stack_t **stack, unsigned int line_number)
 {
 	int value = 0;
-	stack_t *new_node = NULL;
+	stack_t *new_node = NULL, *last_node = NULL;
 	/*if arg is not digit and not neg or positive*/
 	if (check_arg(glob_var.arg) == -1)
 	{
@@ -59,14 +59,29 @@ void push(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-	/*SET DATA FOR NEW NODE*/
 	new_node->n = value;
 	new_node->prev = NULL;
-	new_node->next = *stack;
-	if (*stack != NULL)
-		(*stack)->prev = new_node;
-	/*set head of stack*/
-	*stack = new_node;
+	new_node->next = NULL;
+	if (glob_var.LIFO_FIFO == 1)
+	{
+		new_node->next = *stack;
+		if (*stack != NULL)
+			(*stack)->prev = new_node;
+		*stack = new_node;
+	}
+	else
+	{
+		if (*stack == NULL)
+			*stack = new_node;
+		else
+		{
+			last_node = *stack;
+			while (last_node->next != NULL)
+				last_node = last_node->next;
+			last_node->next = new_node;
+			new_node->prev = last_node;
+		}
+	}
 }
 /**
  * pall - prints all the values on the stack, starting from the top

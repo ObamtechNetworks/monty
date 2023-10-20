@@ -26,7 +26,7 @@ void pstr(stack_t **stack, unsigned int line_number)
 	}
 	temp = *stack;
 	/** check the integer at the stack if within valid ascii range*/
-	while (temp != NULL && temp->n != 0 && 
+	while (temp != NULL && temp->n != 0 &&
 			temp->n >= 0 && temp->n <= 127)
 	{
 		/*print the ascii equivalent of the int at stack top*/

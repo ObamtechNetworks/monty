@@ -23,7 +23,9 @@ void get_opfunc(char *opcode, stack_t **stack, unsigned int line_number)
 		{"rotl", rotl},
 		{"rotr", rotr},
 		{"pchar", pchar},
-		{"pstr", pstr}
+		{"pstr", pstr},
+		{"queue", _queue},
+		{"stack", _stack}
 
 	};
 	int size = sizeof(instructions) / sizeof(instructions[0]);

@@ -43,6 +43,7 @@ typedef struct instruction_s
  * @arg: the second argument after opcode in the bytecode i.e:push 1
  * @file: file stream
  * @rd_line: to store lines read from geline()
+ * @LIFO_FIFO: to switch modes
  * @opcode: the actual opcode e.g: pop, push
  * @line_no: line number for each opcode
  *
@@ -52,6 +53,7 @@ typedef struct glob_vars
 {
 	char *opcode;
 	char *arg;
+	int LIFO_FIFO;
 	char *rd_line;
 	FILE *file;
 	unsigned int line_no;
@@ -78,7 +80,8 @@ void pchar(stack_t **stack, unsigned int line_number);
 void pstr(stack_t **stack, unsigned int line_number);
 void rotl(stack_t **stack, unsigned int line_number);
 void rotr(stack_t **stack, unsigned int line_number);
-
+void _queue(stack_t **stack, unsigned int line_number);
+void _stack(stack_t **stack, unsigned int line_number);
 
 /*TOKENIZER FAMILY*/
 char *parse_arg(char *arg_token);
