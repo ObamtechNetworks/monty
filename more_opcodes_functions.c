@@ -27,7 +27,7 @@ void sub(stack_t **stack, unsigned int line_number)
 /**
  * div_op - function divides the second top element
  *  of the stack by the top element of the stack.
- *  second_top / top
+ *  result = second_top / top
  *  @stack: double pointer pointing to the stack
  *  @line_number: keeps track of the line number in the stack
  */
