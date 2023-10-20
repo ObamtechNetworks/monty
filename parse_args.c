@@ -6,7 +6,7 @@
  * for the tokenize_line function to help manage cases when
  * argument is NULL, so that it can return an empty string
  * instead of returnning NULL
- * Return: dynamicall allocation of argument tokeni
+ * Return: dynamicall allocation of argument token
  */
 char *parse_arg(char *arg_token)
 {
@@ -30,5 +30,5 @@ char *parse_arg(char *arg_token)
 			exit(EXIT_FAILURE);
 		}
 	}
-	return (argument);/*rtns dynmicalloc copy of arg*/
+	return (argument);/*rtns dynamic alloc copy of arg*/
 }
