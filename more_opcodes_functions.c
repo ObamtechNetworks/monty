@@ -2,7 +2,7 @@
 /**
  * sub - function subtracts the top element
  *  of the stack from the second top element of the stack
- *  second_top - top
+ *  result = second_top - top
  * @stack: double pointer to the top of the stack
  * @line_number: This keeps track of the line number
  */
