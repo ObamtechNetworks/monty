@@ -32,6 +32,7 @@ void pint(stack_t **stack, unsigned int line_number)
 }
 /**
  * nop - nop opcode doex not do anything
+ * has no return type
  * @stack: a double pointer to the stack
  * @line_number: used to keep track of the line number
  */
