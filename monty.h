@@ -44,7 +44,6 @@ typedef struct instruction_s
  * @file: file stream
  * @rd_line: to store lines read from geline()
  * @opcode: the actual opcode e.g: pop, push
- * @LIFO_FIFO: for switching between queue and stack
  * @line_no: line number for each opcode
  *
  * Description: to be declared as a global variable for opcode, value & line no
@@ -54,7 +53,6 @@ typedef struct glob_vars
 	char *opcode;
 	char *arg;
 	char *rd_line;
-	int LIFO_FIFO;
 	FILE *file;
 	unsigned int line_no;
 } glob_t;
@@ -64,12 +62,6 @@ glob_t glob_var;
 /** opcode functions */
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
-void pchar(stack_t **stack, unsigned int line_number);
-void pstr(stack_t **stack, unsigned int line_number);
-void rotl(stack_t **stack, unsigned int line_number);
-void rotr(stack_t **stack, unsigned int line_number);
-void _queue(stack_t **stack, unsigned int line_number);
-void _stack(stack_t **stack, unsigned int line_number);
 void trim_whitespace(char *str);
 
 /** more opcode functions */
@@ -95,10 +87,6 @@ void get_opfunc(char *opcode, stack_t **stack, unsigned int line_number);
 
 /*helper functions*/
 char *_strdup(char *str);
-
-/** DOUBLY LINKED LIST ELMENTS ADD TO TOP OR REAR OF STACK/QUEUE*/
-stack_t *add_dnodeint(stack_t **head, const int n);
-stack_t *add_dnodeint_end(stack_t **head, const int n);
 
 /** FREE RESOURCES */
 void free_globals(void);

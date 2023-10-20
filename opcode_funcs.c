@@ -59,11 +59,14 @@ void push(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-	/*push values to the stack: if stack opcode or queue was given*/
-	if (glob_var.LIFO_FIFO == 1)
-		add_dnodeint(stack, value);
-	else
-		add_dnodeint_end(stack, value);
+	/*SET DATA FOR NEW NODE*/
+	new_node->n = value;
+	new_node->prev = NULL;
+	new_node->next = *stack;
+	if (*stack != NULL)
+		(*stack)->prev = new_node;
+	/*set head of stack*/
+	*stack = new_node;
 }
 /**
  * pall - prints all the values on the stack, starting from the top
@@ -80,46 +83,5 @@ void pall(stack_t **stack, unsigned int line_number)
 	{
 		printf("%d\n", temp->n);
 		temp = temp->next;
-	}
-}
-/**
- * pchar - prints the ascii value of the integer at the top of the stack
- * @stack: pointer to the doubly linked list
- * @line_number: the line number in the opcode
- * Usage: pchar
- * Description: the integer stored at the top of the
- * stack is treated as the ascii value
- * of the character to be printed
- * EDGE CASE: caters for -->empty stack, invalid ascii value
- * Return: void
- */
-void pchar(stack_t **stack, unsigned int line_number)
-{
-	/*check if teh stack is empty*/
-	if (stack == NULL || *stack == NULL)
-	{
-		free_globals();/*free the global variables*/
-		free_stack(*stack);/*free the stack*/
-		free_ln_cls_fd();/*close the file stream descriptor*/
-		fprintf(stderr, "L%d: can't pchar, stack empty\n",
-				line_number);
-		exit(EXIT_FAILURE);
-	}
-	/** check the integer at the stack if within valid ascii range*/
-	if ((*stack)->n >= 0 && (*stack)->n <= 128)
-	{
-		/*print the ascii equivalent of the int at stack top*/
-		printf("%c\n", (*stack)->n);
-	}
-	else
-	{
-		free_globals();/*free the global variables*/
-		free_stack(*stack);/*free the stack*/
-		free_ln_cls_fd();/*close the file stream descriptor*/
-
-		/*throw the error at the given line*/
-		fprintf(stderr, "L%d: can't pchar, value out of range\n",
-				line_number);
-		exit(EXIT_FAILURE);
 	}
 }
