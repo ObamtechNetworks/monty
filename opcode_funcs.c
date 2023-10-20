@@ -109,7 +109,7 @@ void pchar(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	/** check the integer at the stack if within valid ascii range*/
-	if ((*stack)->n >= 0 && (*stack)->n <= 128)
+	if ((*stack)->n >= 0 && (*stack)->n <= 127)
 	{
 		/*print the ascii equivalent of the int at stack top*/
 		printf("%c\n", (*stack)->n);

@@ -14,19 +14,24 @@
  */
 void pstr(stack_t **stack, unsigned int line_number)
 {
+	stack_t *temp = NULL;
+
 	(void)line_number;
 	/*check if teh stack is empty*/
 	if (stack == NULL || *stack == NULL)
 	{
 		/*print only new line*/
 		printf("\n");
+		return;
 	}
+	temp = *stack;
 	/** check the integer at the stack if within valid ascii range*/
-	while (((*stack)->n > 0 && (*stack)->n <= 128) && *stack != NULL)
+	while (temp != NULL && temp->n != 0 && 
+			temp->n >= 0 && temp->n <= 127)
 	{
 		/*print the ascii equivalent of the int at stack top*/
-		printf("%c", (*stack)->n);
-		*stack = (*stack)->next; /*move to the next*/
+		printf("%c", temp->n);
+		temp = temp->next; /*move to the next*/
 	}
 	printf("\n");
 }
