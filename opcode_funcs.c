@@ -58,7 +58,7 @@ void push(stack_t **stack, unsigned int line_number)
 	{
 		free_globals();
 		free_ln_cls_fd();
-		fre_stack(*stack);
+		free_stack(*stack);
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
