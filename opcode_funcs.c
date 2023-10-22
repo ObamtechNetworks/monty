@@ -29,7 +29,7 @@ int check_arg(char *arg)
 	for (i = 0; arg[i] != '\0'; i++)
 	{
 		/*if arg is not digit and not neg or positive*/
-		if (!isdigit(arg[i]) && arg[i] != '-')
+		if (!isdigit(arg[i]) && arg[i] != '-' && arg[i] != '+')
 		{
 			return (-1);
 		}
@@ -56,6 +56,9 @@ void push(stack_t **stack, unsigned int line_number)
 	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
 	{
+		free_globals();
+		free_ln_cls_fd();
+		fre_stack(*stack);
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
