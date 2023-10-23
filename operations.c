@@ -62,7 +62,6 @@ void pop(stack_t **stack, unsigned int line_number)
 	{
 		ptr = *stack;
 		*stack = (*stack)->next;
-		printf("Popped something!: %d\n", glob_var.line_no);
 		free(ptr);
 	}
 }
