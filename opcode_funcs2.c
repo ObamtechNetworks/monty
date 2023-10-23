@@ -82,28 +82,20 @@ void rotl(stack_t **stack, unsigned int line_number)
  */
 void rotr(stack_t **stack, unsigned int line_number)
 {
-	stack_t *temp = NULL, *current = NULL, *next = NULL;
+	stack_t *last = NULL;
 
 	(void)line_number;
 	if (stack != NULL && *stack != NULL && (*stack)->next != NULL)
 	{
-		temp = NULL;
-		current = *stack;
+		last = *stack;
 
-		/*loop to reverse the stack*/
-		while (current != NULL)
-		{
-			next = current->next;
-			current->next = temp;
-			current->prev = NULL;
-			if (temp != NULL)
-				temp->prev = current;
-			temp = current;
-			current = next;
-		}
-		/*update pointer head*/
-		*stack = temp;
+		while (last->next != NULL)
+			last = last->next;
+
+		last->next = *stack;
+		(*stack)->prev = last;
+		last->prev->next = NULL;
+		last->prev = NULL;
+		*stack = last;
 	}
-	else
-		return;
 }
