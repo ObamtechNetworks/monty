@@ -50,7 +50,7 @@ void pop(stack_t **stack, unsigned int line_number)
 {
 	stack_t *ptr;
 
-	if (*stack == NULL)
+	if (stack == NULL || *stack == NULL)
 	{
 		free_globals();
 		free_ln_cls_fd();
@@ -62,6 +62,7 @@ void pop(stack_t **stack, unsigned int line_number)
 	{
 		ptr = *stack;
 		*stack = (*stack)->next;
+		printf("Popped something!: %d\n", glob_var.line_no);
 		free(ptr);
 	}
 }

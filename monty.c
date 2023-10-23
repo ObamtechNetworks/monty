@@ -23,8 +23,10 @@ ssize_t read_byte_code(char **line, size_t *length, FILE *stream)
 		/*check if the first non-space character is a '#' */
 		while (*ptr && isspace(*ptr))
 			ptr++;
+		if (*ptr == '\0')
+			break;
 	/*if the first non-space char is a '#', skip the line*/
-	} while (*ptr == '\0' || *ptr == '#');
+	} while (*ptr == '#');
 
 	return (lines_read);
 }

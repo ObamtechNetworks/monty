@@ -48,9 +48,7 @@ void push(stack_t **stack, unsigned int line_number)
 	stack_t *new_node = NULL, *last_node = NULL;
 	/*if arg is not digit and not neg or positive*/
 	if (check_arg(glob_var.arg) == -1)
-	{
 		free_arg(stack, line_number);
-	}
 	value = atoi(glob_var.arg);
 	/*create a new stack node and push value onto the stack*/
 	new_node = malloc(sizeof(stack_t));
